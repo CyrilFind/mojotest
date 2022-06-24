@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         // parse json
         val overlay = Json.decodeFromString<Overlay>(raw)
         
-        binding.mainTextView.text = overlay.toString()
+        // display
+        binding.mainOverlay.overlay = overlay
     }
 }

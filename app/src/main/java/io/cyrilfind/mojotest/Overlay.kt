@@ -1,8 +1,9 @@
 package io.cyrilfind.mojotest
 
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class Overlay(
     @SerialName("width")
     val width: Float,
