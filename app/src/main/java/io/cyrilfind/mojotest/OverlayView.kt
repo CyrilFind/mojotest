@@ -24,81 +24,19 @@ class OverlayView @JvmOverloads constructor(
         get() = height - paddingTop - paddingBottom
 
     fun setOverlay(overlay: Overlay) {
-        rects =
-            computeRects(overlay, RectF(0f, 0f, contentWidth.toFloat(), contentHeight.toFloat()))
+        val canvasRect =
+            Rectangle(0f, 0f, contentWidth.toFloat(), contentHeight.toFloat(), "#FFFFFF")
+        rects = overlay.computeRects(canvasRect)
+            .map {
+                val rectF = RectF(it.left, it.top, it.right, it.bottom)
+                val paint = Paint().apply {
+                    color = Color.parseColor(it.color)
+                    style = Paint.Style.FILL
+                }
+                rectF to paint
+            }
         Log.d("OverlayView", "drawing ${rects.size} rects: ${rects.map { it.first }} ")
         invalidate()
-    }
-
-    private fun computeRects(
-        overlay: Overlay,
-        parentRect: RectF,
-    ): List<Pair<RectF, Paint>> {
-        val (rect, paint) = computeRect(overlay, parentRect)
-        val list = mutableListOf(rect to paint)
-        
-        val paddedRect = RectF(rect)
-        val width = rect.width()
-        val height = rect.height()
-       
-        paddedRect.apply {
-            left += overlay.padding * width
-            top += overlay.padding * height
-            right -= overlay.padding * width
-            bottom -= overlay.padding * height
-        }
-        Log.d("OverlayView", "parent: $parentRect, padded: $paddedRect ")
-
-        overlay.children.forEach { child ->
-            list += computeRects(child, paddedRect)
-        }
-
-        return list
-    }
-
-    private fun computeRect(overlay: Overlay, parentRect: RectF): Pair<RectF, Paint> {
-        val parentWidth = parentRect.width()
-        val parentHeight = parentRect.height()
-        val width = overlay.widthRatio * parentWidth
-        val height = overlay.heightRatio * parentHeight
-        val x = overlay.xRatio * parentWidth
-        val y = overlay.yRatio * parentHeight
-
-        val left = when (overlay.anchorX) {
-            "left" -> parentRect.left + x
-            "right" -> parentRect.left + x - width
-            "center" -> parentRect.left + x - (width / 2)
-            else -> 0f
-        }
-
-        val top = when (overlay.anchorY) {
-            "bottom" -> parentRect.top + y
-            "top" -> parentRect.top + y - height
-            "center" -> parentRect.top + y - (height / 2)
-            else -> 0f
-        }
-
-        val right = when (overlay.anchorX) {
-            "left" -> parentRect.left + x + width
-            "right" -> parentRect.left + x
-            "center" -> parentRect.left + x + (width / 2)
-            else -> 0f
-        }
-        
-        val bottom = when (overlay.anchorY) {
-            "bottom" -> parentRect.top + y + height
-            "top" -> parentRect.top + y
-            "center" -> parentRect.top + y + (height / 2)
-            else -> 0f
-        }
-
-        val rect = RectF(left, top, right, bottom)
-
-        val paint = Paint().apply {
-            color = Color.parseColor(overlay.backgroundColor);
-            style = Paint.Style.FILL
-        }
-        return rect to paint
     }
 
     override fun onDraw(canvas: Canvas) {
