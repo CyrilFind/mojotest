@@ -14,77 +14,62 @@ data class Overlay(
     @SerialName("y")
     val yRatio: Float = 0f,
     @SerialName("anchor_x")
-    val anchorX: String = "left",
+    val anchorX: HorizontalAnchor = HorizontalAnchor.LEFT,
     @SerialName("anchor_y")
-    val anchorY: String = "bottom",
+    val anchorY: VerticalAnchor = VerticalAnchor.BOTTOM,
     @SerialName("background_color")
     val backgroundColor: String,
     @SerialName("padding")
     val padding: Float = 0f,
+    @SerialName("padding_left")
+    val paddingLeft: Float = padding,
+    @SerialName("padding_top")
+    val paddingTop: Float = padding,
+    @SerialName("padding_right")
+    val paddingRight: Float = padding,
+    @SerialName("padding_bottom")
+    val paddingBottom: Float = padding,
     @SerialName("children")
     val children: List<Overlay> = emptyList()
 ) {
 
-    fun computeRects(parentRect: Rectangle): List<Rectangle> {
-        val rect = computeRect(parentRect)
-        val list = mutableListOf(rect)
+    fun computeRectangles(parent: Rectangle): List<Rectangle> {
+        val rect = computeRectangle(parent)
+        val result = mutableListOf(rect)
 
-        val paddedRect = rect.copy()
+        val paddedRect = rect.copy(
+            left = rect.left + (paddingLeft * rect.width),
+            top = rect.top + (paddingTop * rect.height),
+            right = rect.right - (paddingRight * rect.width),
+            bottom = rect.bottom - (paddingBottom * rect.height)
+        )
 
-        paddedRect.apply {
-            left += padding * rect.width
-            top += padding * rect.height
-            right -= padding * rect.width
-            bottom -= padding * rect.height
-        }
+        children.forEach { result += it.computeRectangles(paddedRect) }
 
-        children.forEach { child ->
-            list += child.computeRects(paddedRect)
-        }
-
-        return list
+        return result
     }
 
-    private fun computeRect(parentRect: Rectangle): Rectangle {
-        val parentWidth = parentRect.width
-        val parentHeight = parentRect.height
-        val width = widthRatio * parentWidth
-        val height = heightRatio * parentHeight
-        val x = xRatio * parentWidth
-        val y = yRatio * parentHeight
+    private fun computeRectangle(parentRect: Rectangle): Rectangle {
+        val width = widthRatio * parentRect.width
+        val height = heightRatio * parentRect.height
 
-        val left = when (anchorX) {
-            "left" -> parentRect.left + x
-            "right" -> parentRect.left + x - width
-            "center" -> parentRect.left + x - (width / 2)
-            else -> 0f
+        val relativeX = xRatio * parentRect.width
+        val x = parentRect.left + relativeX
+        val (left, right) = when (anchorX) {
+            HorizontalAnchor.LEFT -> x to x + width
+            HorizontalAnchor.RIGHT -> x - width to x
+            HorizontalAnchor.CENTER -> x - (width / 2) to x + (width / 2)
         }
 
-        val top = when (anchorY) {
-            "bottom" -> parentRect.bottom - y - height
-            "top" -> parentRect.bottom - y
-            "center" -> parentRect.bottom - y - (height / 2)
-            else -> 0f
+        val relativeY = yRatio * parentRect.height
+        val y = parentRect.bottom - relativeY // Y is defined from bottom
+        val (top, bottom) = when (anchorY) {
+            VerticalAnchor.TOP -> y to y + height
+            VerticalAnchor.BOTTOM -> y - height to y
+            VerticalAnchor.CENTER -> y - (height / 2) to y + (height / 2)
         }
 
-        val right = when (anchorX) {
-            "left" -> parentRect.left + x + width
-            "right" -> parentRect.left + x
-            "center" -> parentRect.left + x + (width / 2)
-            else -> 0f
-        }
-
-        val bottom = when (anchorY) {
-            "bottom" -> parentRect.bottom - y
-            "top" -> parentRect.bottom - y + height
-            "center" -> parentRect.bottom - y + (height / 2)
-            else -> 0f
-        }
-
-        val rect = Rectangle(left, top, right, bottom, backgroundColor)
-
-        return rect
+        return Rectangle(left, top, right, bottom, backgroundColor)
     }
 }
-
 

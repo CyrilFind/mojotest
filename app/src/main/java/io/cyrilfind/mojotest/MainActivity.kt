@@ -20,10 +20,7 @@ class MainActivity : AppCompatActivity() {
         // parse json
         val overlay = Json.decodeFromString<Overlay>(raw)
 
-        // wait first layout 
-        binding.root.post {
-            // display
-            binding.mainOverlay.setOverlay(overlay)
-        }
+        // display
+        binding.mainOverlay.setOverlay(overlay)
     }
 }

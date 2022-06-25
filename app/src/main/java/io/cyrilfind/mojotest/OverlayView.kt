@@ -18,29 +18,26 @@ class OverlayView @JvmOverloads constructor(
 
     private var rects: List<Pair<RectF, Paint>> = emptyList()
 
-    private val contentWidth: Int
-        get() = width - paddingLeft - paddingRight
-    private val contentHeight: Int
-        get() = height - paddingTop - paddingBottom
+    private fun getContentWidth(): Float = (width - paddingLeft - paddingRight).toFloat()
+    private fun getContentHeight(): Float = (height - paddingTop - paddingBottom).toFloat()
 
-    fun setOverlay(overlay: Overlay) {
-        val canvasRect =
-            Rectangle(0f, 0f, contentWidth.toFloat(), contentHeight.toFloat(), "#FFFFFF")
-        rects = overlay.computeRects(canvasRect)
-            .map {
-                val rectF = RectF(it.left, it.top, it.right, it.bottom)
-                val paint = Paint().apply {
-                    color = Color.parseColor(it.color)
-                    style = Paint.Style.FILL
-                }
-                rectF to paint
+    fun setOverlay(overlay: Overlay) = post {
+        val canvasRect = Rectangle(0f, 0f, getContentWidth(), getContentHeight())
+        Log.d("OverlayView", "computing rects in $canvasRect")
+        rects = overlay.computeRectangles(canvasRect).map {
+            val rectF = RectF(it.left, it.top, it.right, it.bottom)
+            val paint = Paint().apply {
+                color = Color.parseColor(it.color)
+                style = Paint.Style.FILL
             }
-        Log.d("OverlayView", "drawing ${rects.size} rects: ${rects.map { it.first }} ")
+            rectF to paint
+        }
         invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        Log.d("OverlayView", "drawing ${rects.size} rects: ${rects.map { it.first }} ")
         rects.forEach { (rect, paint) -> canvas.drawRect(rect, paint) }
     }
 }

@@ -119,7 +119,7 @@ class OverlayTest {
         val canvasRect = Rectangle(0f, 0f, 1000f, 1000f, "#FFFFFF")
 
         // WHEN
-        val actual = sampleOverlay.computeRects(canvasRect)
+        val actual = sampleOverlay.computeRectangles(canvasRect)
 
         // THEN
         val expected = listOf(
