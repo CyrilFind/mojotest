@@ -1,0 +1,25 @@
+{
+  "width": 1,
+  "height": 1,
+  "x": 0,
+  "y": 0,
+  "anchor_x": "left",
+  "anchor_y": "bottom",
+  "background_color": "#6BA2F7",
+  "padding": 0.1,
+  "padding_right": 0.02,
+  "padding_top": 0.03,
+  "padding_bottom": 0.05,
+  "children": [
+    {
+      "width": 1,
+      "height": 1,
+      "x": 0,
+      "y": 0,
+      "padding_left": 0.1,
+      "anchor_x": "left",
+      "anchor_y": "bottom",
+      "background_color": "#73D3A2"
+    }
+  ]
+}
