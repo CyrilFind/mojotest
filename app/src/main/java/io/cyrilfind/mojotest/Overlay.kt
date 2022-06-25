@@ -6,13 +6,13 @@ import kotlinx.serialization.SerialName
 @Serializable
 data class Overlay(
     @SerialName("width")
-    val width: Float,
+    val widthRatio: Float,
     @SerialName("height")
-    val height: Float,
+    val heightRatio: Float,
     @SerialName("x")
-    val x: Float = 0f,
+    val xRatio: Float = 0f,
     @SerialName("y")
-    val y: Float = 0f,
+    val yRatio: Float = 0f,
     @SerialName("anchor_x")
     val anchorX: String = "left",
     @SerialName("anchor_y")
