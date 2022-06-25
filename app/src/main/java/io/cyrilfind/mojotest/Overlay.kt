@@ -61,9 +61,9 @@ data class Overlay(
         }
 
         val top = when (anchorY) {
-            "bottom" -> parentRect.top + y
-            "top" -> parentRect.top + y - height
-            "center" -> parentRect.top + y - (height / 2)
+            "bottom" -> parentRect.bottom - y - height
+            "top" -> parentRect.bottom - y
+            "center" -> parentRect.bottom - y - (height / 2)
             else -> 0f
         }
 
@@ -75,9 +75,9 @@ data class Overlay(
         }
 
         val bottom = when (anchorY) {
-            "bottom" -> parentRect.top + y + height
-            "top" -> parentRect.top + y
-            "center" -> parentRect.top + y + (height / 2)
+            "bottom" -> parentRect.bottom - y
+            "top" -> parentRect.bottom - y + height
+            "center" -> parentRect.bottom - y + (height / 2)
             else -> 0f
         }
 
