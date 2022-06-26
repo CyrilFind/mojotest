@@ -7,24 +7,36 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.core.graphics.toRect
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.withContext
 
 class OverlayView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private val job = Job()
+
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)    
+    
+    private val ioDispatcher = Dispatchers.IO
+    private val defaultDispatcher = Dispatchers.Default
+    
     private var drawData: List<Triple<RectF, Paint, Bitmap?>> = emptyList()
+
     private val glide = Glide.with(context)
     var overlay: Overlay? = null
 
+
     private fun computeOverlay() {
         val overlay = overlay ?: return
-        GlobalScope.launch {
+        uiScope.launch(defaultDispatcher) {
             val contentWidth = (measuredWidth - paddingLeft - paddingRight).toFloat()
             val contentHeight = (measuredHeight - paddingTop - paddingBottom).toFloat()
 
@@ -37,8 +49,10 @@ class OverlayView @JvmOverloads constructor(
                     color = Color.parseColor(it.color)
                     style = Paint.Style.FILL
                 }
-                val bitmap = it.mediaUrl?.let { url -> glide.asBitmap().load(url).submit().get() }
-                Triple(rectF, paint, bitmap)
+                withContext(ioDispatcher) {
+                    val bitmap = it.mediaUrl?.let { url -> glide.asBitmap().load(url).submit().get() }
+                    Triple(rectF, paint, bitmap)
+                }
             }
             postInvalidate()
         }
@@ -67,5 +81,10 @@ class OverlayView @JvmOverloads constructor(
             // val scaleRect = RectF(rect.left, rect.top, rect.left + (scale * bitmap.width), rect.top + (scale * bitmap.height))
             // canvas.drawBitmap(bitmap, null, scaleRect, paint)
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        job.cancel()
     }
 }
