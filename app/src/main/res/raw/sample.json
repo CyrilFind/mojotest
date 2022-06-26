@@ -19,7 +19,7 @@
       "anchor_x": "left",
       "anchor_y": "bottom",
       "background_color": "#73D3A2",
-      "media": "https://picsum.photos/2000/1000",
+      "media": "https://picsum.photos/1000/2000",
       "media_content_mode": "fill",
       "children": [
         {
