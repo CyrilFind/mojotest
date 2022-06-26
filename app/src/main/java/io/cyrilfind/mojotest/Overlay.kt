@@ -73,7 +73,7 @@ data class Overlay(
             VerticalAnchor.CENTER -> y - (height / 2) to y + (height / 2)
         }
 
-        return Rectangle(left, top, right, bottom, backgroundColor, mediaUrl)
+        return Rectangle(left, top, right, bottom, backgroundColor, mediaUrl, mediaContentMode)
     }
 }
 
