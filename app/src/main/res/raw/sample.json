@@ -19,6 +19,7 @@
       "anchor_x": "left",
       "anchor_y": "bottom",
       "background_color": "#73D3A2",
+      "media": "https://picsum.photos/2000/1000",
       "children": [
         {
           "width": 0.2,
@@ -63,7 +64,8 @@
           "y": 0.5,
           "anchor_x": "center",
           "anchor_y": "center",
-          "background_color": "#FF0000"
+          "background_color": "#FF0000",
+          "media": "https://picsum.photos/500/500"
         },
         {
           "width": 0.2,
@@ -72,7 +74,8 @@
           "y": 0.5,
           "anchor_x": "left",
           "anchor_y": "center",
-          "background_color": "#0000FF"
+          "background_color": "#0000FF",
+          "media" : "https://picsum.photos/200/300"
         },
         {
           "width": 0.2,
@@ -81,7 +84,8 @@
           "y": 0.5,
           "anchor_x": "right",
           "anchor_y": "center",
-          "background_color": "#0000FF"
+          "background_color": "#0000FF",
+          "media" : "https://picsum.photos/400/300"
         },
         {
           "width": 0.2,

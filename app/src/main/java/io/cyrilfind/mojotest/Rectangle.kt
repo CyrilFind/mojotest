@@ -5,7 +5,8 @@ data class Rectangle(
     val top: Float,
     val right: Float,
     val bottom: Float,
-    val color: String = "#FFFFFF"
+    val color: String = "#FFFFFF",
+    val mediaUrl: String? = null
 ) {
     val width: Float get() = right - left
     val height: Float get() = bottom - top

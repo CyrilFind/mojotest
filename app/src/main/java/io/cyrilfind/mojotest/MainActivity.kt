@@ -3,6 +3,8 @@ package io.cyrilfind.mojotest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.cyrilfind.mojotest.databinding.ActivityMainBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -21,6 +23,6 @@ class MainActivity : AppCompatActivity() {
         val overlay = Json.decodeFromString<Overlay>(raw)
 
         // display
-        binding.mainOverlay.setOverlay(overlay)
+        binding.mainOverlay.overlay = overlay
     }
 }

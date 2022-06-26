@@ -30,7 +30,11 @@ data class Overlay(
     @SerialName("padding_bottom")
     val paddingBottom: Float = padding,
     @SerialName("children")
-    val children: List<Overlay> = emptyList()
+    val children: List<Overlay> = emptyList(),
+    @SerialName("media")
+    val mediaUrl: String? = null,
+    @SerialName("media_content_mode")
+    val mediaContentMode: MediaContentMode? = null,
 ) {
 
     fun computeRectangles(parent: Rectangle): List<Rectangle> {
@@ -69,7 +73,7 @@ data class Overlay(
             VerticalAnchor.CENTER -> y - (height / 2) to y + (height / 2)
         }
 
-        return Rectangle(left, top, right, bottom, backgroundColor)
+        return Rectangle(left, top, right, bottom, backgroundColor, mediaUrl)
     }
 }
 
