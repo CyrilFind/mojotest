@@ -15,6 +15,8 @@ import io.cyrilfind.mojotest.templater.data.Template
 import io.cyrilfind.mojotest.templater.view.BitmapWrapper
 import io.cyrilfind.mojotest.templater.view.Drawing
 import io.cyrilfind.mojotest.templater.view.TemplateView
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlin.coroutines.resume
@@ -25,12 +27,14 @@ class Templater(
     private val context: Context,
     private val imageFetcher: ImageFetcher,
     private val jsonDeserializer: Json,
+    private val backgroundDispatcher: CoroutineDispatcher,
+    private val ioDispatcher: CoroutineDispatcher,
 ) {
     private lateinit var template: Template
 
-    fun load(@RawRes resId: Int): Templater {
+    suspend fun load(@RawRes resId: Int): Templater = withContext(ioDispatcher) {
         val raw = context.resources.openRawResource(resId).bufferedReader().use { it.readText() }
-        return load(jsonDeserializer.decodeFromString<Template>(raw))
+        return@withContext load(jsonDeserializer.decodeFromString<Template>(raw))
     }
 
     fun load(template: Template): Templater {
@@ -38,7 +42,7 @@ class Templater(
         return this
     }
 
-    suspend fun into(templateView: TemplateView) {
+    suspend fun into(templateView: TemplateView) = withContext(backgroundDispatcher) {
         with(templateView) {
             val (contentWidth, contentHeight) = suspendCoroutine {
                 post {

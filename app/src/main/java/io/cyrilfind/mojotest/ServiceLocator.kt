@@ -9,11 +9,12 @@ object ServiceLocator {
     internal lateinit var appContext: Context
     
     private val ioDispatcher = Dispatchers.IO
+    private val backgroundDispatcher = Dispatchers.Default
 
     private val jsonDeserializer by lazy { Json { ignoreUnknownKeys = true } }
     private val imageFetcher: ImageFetcher by lazy { ImageFetcher(appContext, ioDispatcher) }
     
     fun getTemplater(): Templater {
-        return Templater(appContext, imageFetcher, jsonDeserializer)
+        return Templater(appContext, imageFetcher, jsonDeserializer, backgroundDispatcher, ioDispatcher)
     }
 }
