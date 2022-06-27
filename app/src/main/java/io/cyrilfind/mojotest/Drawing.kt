@@ -10,5 +10,6 @@ data class Drawing(
     val rect: RectF,
     val paint: Paint,
     val bitmap: Bitmap?,
-    val matrix: Matrix
+    val src: Rect?,
+    val dest: RectF
 )

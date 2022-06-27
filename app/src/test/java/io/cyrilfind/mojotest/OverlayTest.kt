@@ -32,6 +32,13 @@ class OverlayTest {
         val expected = Sample.Overlay.withPaddings
         Assert.assertEquals(expected, actual)
     }
+    
+    @Test
+    fun `given correct json with media input when serializing then output is correct`() {
+        val actual = Json.decodeFromString<Overlay>(Sample.Json.withMedia)
+        val expected = Sample.Overlay.withMedia
+        Assert.assertEquals(expected, actual)
+    }
 
     @Test
     fun `given nested overlay when computing rects then output is correct`() {

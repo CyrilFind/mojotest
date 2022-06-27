@@ -73,6 +73,30 @@ object Sample {
                 )
             )
         )
+        
+        val withMedia = Overlay(
+            widthRatio = 1.0f,
+            heightRatio = 1.0f,
+            backgroundColor = "#6BA2F7",
+            mediaUrl = "https://picsum.photos/200/300",
+            mediaContentMode = MediaContentMode.FILL,
+            children = listOf(
+                Overlay(
+                    widthRatio = 0.9f,
+                    heightRatio = 0.9f,
+                    backgroundColor = "#73D3A2",
+                    mediaUrl = "https://picsum.photos/400/300",
+                    mediaContentMode = MediaContentMode.FIT,
+                ),
+                Overlay(
+                    widthRatio = 1.0f,
+                    heightRatio = 1.0f,
+                    backgroundColor = "#73D3A2",
+                    mediaUrl = "https://picsum.photos/300/400",
+                    mediaContentMode = MediaContentMode.FILL,
+                )
+            )
+        )
 
         val withAnchors = Overlay(
             widthRatio = 1.0f,
@@ -184,6 +208,7 @@ object Sample {
         val nested = loadJson("overlay_nested.json")
         val withPaddings = loadJson("overlay_with_paddings.json")
         val withAnchors = loadJson("overlay_with_anchors.json")
+        val withMedia = loadJson("overlay_with_media.json")
     }
 
 

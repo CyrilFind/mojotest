@@ -19,7 +19,7 @@
       "anchor_x": "left",
       "anchor_y": "bottom",
       "background_color": "#73D3A2",
-      "media": "https://picsum.photos/1000/2000",
+      "media": "https://picsum.photos/3000/2000",
       "media_content_mode": "fill",
       "children": [
         {
@@ -67,7 +67,7 @@
           "anchor_y": "center",
           "background_color": "#FF0000",
           "media": "https://picsum.photos/500/500",
-          "media_content_mode": "fit"
+          "media_content_mode": "fill"
         },
         {
           "width": 0.2,

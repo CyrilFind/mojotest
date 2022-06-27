@@ -1,0 +1,22 @@
+{
+  "width": 1,
+  "height": 1,
+  "background_color": "#6BA2F7",
+  "media" : "https://picsum.photos/200/300",
+  "media_content_mode": "fill",
+  "children": [
+    {
+      "width": 0.9,
+      "height": 0.9,
+      "background_color": "#73D3A2",
+      "media" : "https://picsum.photos/400/300",
+      "media_content_mode": "fit"
+    },
+    {
+      "width": 1,
+      "height": 1,
+      "background_color": "#73D3A2",
+      "media" : "https://picsum.photos/300/400"
+    }
+  ]
+}

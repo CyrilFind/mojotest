@@ -9,6 +9,8 @@ data class Overlay(
     val widthRatio: Float,
     @SerialName("height")
     val heightRatio: Float,
+    @SerialName("background_color")
+    val backgroundColor: String,
     @SerialName("x")
     val xRatio: Float = 0f,
     @SerialName("y")
@@ -17,8 +19,6 @@ data class Overlay(
     val anchorX: HorizontalAnchor = HorizontalAnchor.LEFT,
     @SerialName("anchor_y")
     val anchorY: VerticalAnchor = VerticalAnchor.BOTTOM,
-    @SerialName("background_color")
-    val backgroundColor: String,
     @SerialName("padding")
     val padding: Float = 0f,
     @SerialName("padding_left")
@@ -34,7 +34,7 @@ data class Overlay(
     @SerialName("media")
     val mediaUrl: String? = null,
     @SerialName("media_content_mode")
-    val mediaContentMode: MediaContentMode? = null,
+    val mediaContentMode: MediaContentMode = MediaContentMode.FILL,
 ) {
 
     fun computeRectangles(parent: Rectangle): List<Rectangle> {
