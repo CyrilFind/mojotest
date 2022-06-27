@@ -1,4 +1,4 @@
-package io.cyrilfind.mojotest
+package io.cyrilfind.mojotest.templater.data
 
 data class Rectangle(
     val left: Float,
@@ -6,9 +6,9 @@ data class Rectangle(
     val right: Float,
     val bottom: Float,
     val color: String = "#FFFFFF",
-    val mediaUrl: String? = null,
-    val mediaContentMode: MediaContentMode = MediaContentMode.FILL, 
+    val media: Media? = null
 ) {
     val width: Float get() = right - left
     val height: Float get() = bottom - top
 }
+

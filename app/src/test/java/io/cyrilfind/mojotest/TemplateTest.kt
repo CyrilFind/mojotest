@@ -1,5 +1,7 @@
 package io.cyrilfind.mojotest
 
+import io.cyrilfind.mojotest.templater.data.Rectangle
+import io.cyrilfind.mojotest.templater.data.Template
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.junit.Assert
@@ -10,32 +12,32 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class OverlayTest {
+class TemplateTest {
 
     @Test
     fun `given correct nested json input when serializing then output is correct`() {
-        val actual = Json.decodeFromString<Overlay>(Sample.Json.nested)
+        val actual = Json.decodeFromString<Template>(Sample.Json.nested)
         val expected = Sample.Overlay.nested
         Assert.assertEquals(expected, actual)
     }
     
     @Test
     fun `given correct json with anchors input when serializing then output is correct`() {
-        val actual = Json.decodeFromString<Overlay>(Sample.Json.withAnchors)
+        val actual = Json.decodeFromString<Template>(Sample.Json.withAnchors)
         val expected = Sample.Overlay.withAnchors
         Assert.assertEquals(expected, actual)
     }   
     
     @Test
     fun `given correct json with paddings input when serializing then output is correct`() {
-        val actual = Json.decodeFromString<Overlay>(Sample.Json.withPaddings)
+        val actual = Json.decodeFromString<Template>(Sample.Json.withPaddings)
         val expected = Sample.Overlay.withPaddings
         Assert.assertEquals(expected, actual)
     }
     
     @Test
     fun `given correct json with media input when serializing then output is correct`() {
-        val actual = Json.decodeFromString<Overlay>(Sample.Json.withMedia)
+        val actual = Json.decodeFromString<Template>(Sample.Json.withMedia)
         val expected = Sample.Overlay.withMedia
         Assert.assertEquals(expected, actual)
     }

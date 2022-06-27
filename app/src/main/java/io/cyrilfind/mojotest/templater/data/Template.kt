@@ -1,10 +1,12 @@
-package io.cyrilfind.mojotest
+package io.cyrilfind.mojotest.templater.data
 
+import io.cyrilfind.mojotest.HorizontalAnchor
+import io.cyrilfind.mojotest.VerticalAnchor
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Overlay(
+data class Template(
     @SerialName("width")
     val widthRatio: Float,
     @SerialName("height")
@@ -30,22 +32,21 @@ data class Overlay(
     @SerialName("padding_bottom")
     val paddingBottom: Float = padding,
     @SerialName("children")
-    val children: List<Overlay> = emptyList(),
+    val children: List<Template> = emptyList(),
     @SerialName("media")
     val mediaUrl: String? = null,
     @SerialName("media_content_mode")
-    val mediaContentMode: MediaContentMode = MediaContentMode.FILL,
+    val mediaContentMode: MediaContentMode? = null,
 ) {
-
     fun computeRectangles(parent: Rectangle): List<Rectangle> {
-        val rect = computeRectangle(parent)
-        val result = mutableListOf(rect)
+        val rectangle = computeRectangle(parent)
+        val result = mutableListOf(rectangle)
 
-        val paddedRect = rect.copy(
-            left = rect.left + (paddingLeft * rect.width),
-            top = rect.top + (paddingTop * rect.height),
-            right = rect.right - (paddingRight * rect.width),
-            bottom = rect.bottom - (paddingBottom * rect.height)
+        val paddedRect = rectangle.copy(
+            left = rectangle.left + (paddingLeft * rectangle.width),
+            top = rectangle.top + (paddingTop * rectangle.height),
+            right = rectangle.right - (paddingRight * rectangle.width),
+            bottom = rectangle.bottom - (paddingBottom * rectangle.height)
         )
 
         children.forEach { result += it.computeRectangles(paddedRect) }
@@ -73,7 +74,11 @@ data class Overlay(
             VerticalAnchor.CENTER -> y - (height / 2) to y + (height / 2)
         }
 
-        return Rectangle(left, top, right, bottom, backgroundColor, mediaUrl, mediaContentMode)
+        val media =
+            if (mediaUrl != null && mediaContentMode != null)
+                Media(mediaUrl, mediaContentMode)
+            else null
+        return Rectangle(left, top, right, bottom, backgroundColor, media)
     }
 }
 

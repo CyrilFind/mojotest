@@ -1,4 +1,4 @@
-package io.cyrilfind.mojotest
+package io.cyrilfind.mojotest.templater.data
 
 import kotlinx.serialization.SerialName
 

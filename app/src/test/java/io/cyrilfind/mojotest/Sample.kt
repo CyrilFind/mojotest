@@ -1,8 +1,11 @@
 package io.cyrilfind.mojotest
 
+import io.cyrilfind.mojotest.templater.data.MediaContentMode
+import io.cyrilfind.mojotest.templater.data.Template
+
 object Sample {
     object Overlay {
-        val nested = Overlay(
+        val nested = Template(
             widthRatio = 1.0f,
             heightRatio = 1.0f,
             xRatio = 0.0f,
@@ -12,7 +15,7 @@ object Sample {
             backgroundColor = "#6BA2F7",
             padding = 0.1f,
             children = listOf(
-                Overlay(
+                Template(
                     widthRatio = 1.0f,
                     heightRatio = 1.0f,
                     xRatio = 0.0f,
@@ -21,7 +24,7 @@ object Sample {
                     anchorY = VerticalAnchor.BOTTOM,
                     backgroundColor = "#73D3A2"
                 ),
-                Overlay(
+                Template(
                     widthRatio = 0.8f,
                     heightRatio = 0.2f,
                     xRatio = 0.5f,
@@ -31,12 +34,12 @@ object Sample {
                     backgroundColor = "#6BA2F7",
                     padding = 0.1f,
                     children = listOf(
-                        Overlay(
+                        Template(
                             widthRatio = 0.4375f,
                             heightRatio = 1.0f,
                             backgroundColor = "#73D3A2",
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.4375f,
                             heightRatio = 1.0f,
                             xRatio = 1.0f,
@@ -48,7 +51,7 @@ object Sample {
             )
         )
         
-        val withPaddings = Overlay(
+        val withPaddings = Template(
             widthRatio = 1.0f,
             heightRatio = 1.0f,
             xRatio = 0.0f,
@@ -61,7 +64,7 @@ object Sample {
             paddingTop = 0.03f,
             paddingBottom = 0.05f,
             children = listOf(
-                Overlay(
+                Template(
                     widthRatio = 1.0f,
                     heightRatio = 1.0f,
                     xRatio = 0.0f,
@@ -74,31 +77,31 @@ object Sample {
             )
         )
         
-        val withMedia = Overlay(
+        val withMedia = Template(
             widthRatio = 1.0f,
             heightRatio = 1.0f,
             backgroundColor = "#6BA2F7",
             mediaUrl = "https://picsum.photos/200/300",
             mediaContentMode = MediaContentMode.FILL,
             children = listOf(
-                Overlay(
+                Template(
                     widthRatio = 0.9f,
                     heightRatio = 0.9f,
                     backgroundColor = "#73D3A2",
                     mediaUrl = "https://picsum.photos/400/300",
                     mediaContentMode = MediaContentMode.FIT,
                 ),
-                Overlay(
+                Template(
                     widthRatio = 1.0f,
                     heightRatio = 1.0f,
                     backgroundColor = "#73D3A2",
                     mediaUrl = "https://picsum.photos/300/400",
-                    mediaContentMode = MediaContentMode.FILL,
+                    mediaContentMode = null,
                 )
             )
         )
 
-        val withAnchors = Overlay(
+        val withAnchors = Template(
             widthRatio = 1.0f,
             heightRatio = 1.0f,
             xRatio = 0.0f,
@@ -108,7 +111,7 @@ object Sample {
             backgroundColor = "#6BA2F7",
             padding = 0.1f,
             children = listOf(
-                Overlay(
+                Template(
                     widthRatio = 1.0f,
                     heightRatio = 1.0f,
                     xRatio = 0.0f,
@@ -117,7 +120,7 @@ object Sample {
                     anchorY = VerticalAnchor.BOTTOM,
                     backgroundColor = "#73D3A2",
                     children = listOf(
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.1f,
@@ -126,7 +129,7 @@ object Sample {
                             anchorY = VerticalAnchor.TOP,
                             backgroundColor = "#FF0000"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.9f,
@@ -135,7 +138,7 @@ object Sample {
                             anchorY = VerticalAnchor.TOP,
                             backgroundColor = "#FF0000"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.9f,
@@ -144,7 +147,7 @@ object Sample {
                             anchorY = VerticalAnchor.BOTTOM,
                             backgroundColor = "#FF0000"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.1f,
@@ -153,7 +156,7 @@ object Sample {
                             anchorY = VerticalAnchor.BOTTOM,
                             backgroundColor = "#FF0000"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.5f,
@@ -162,7 +165,7 @@ object Sample {
                             anchorY = VerticalAnchor.CENTER,
                             backgroundColor = "#FF0000"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.1f,
@@ -171,7 +174,7 @@ object Sample {
                             anchorY = VerticalAnchor.CENTER,
                             backgroundColor = "#0000FF"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.9f,
@@ -180,7 +183,7 @@ object Sample {
                             anchorY = VerticalAnchor.CENTER,
                             backgroundColor = "#0000FF"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.5f,
@@ -189,7 +192,7 @@ object Sample {
                             anchorY = VerticalAnchor.TOP,
                             backgroundColor = "#0000FF"
                         ),
-                        Overlay(
+                        Template(
                             widthRatio = 0.2f,
                             heightRatio = 0.2f,
                             xRatio = 0.5f,
